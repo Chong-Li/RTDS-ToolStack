@@ -1,0 +1,10 @@
+--- xen/common/Makefile
++++ xen/common/Makefile
+@@ -31,6 +31,7 @@
+ obj-y += rcupdate.o
+ obj-y += sched_credit.o
+ obj-y += sched_credit2.o
++obj-y += sched_sedf.o
+ obj-y += sched_arinc653.o
+ obj-y += sched_rt.o
+ obj-y += schedule.o

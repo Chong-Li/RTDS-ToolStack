@@ -1,0 +1,35 @@
+--- xen/common/sched_credit.c
++++ xen/common/sched_credit.c
+@@ -1039,25 +1039,25 @@
+ 
+     if ( op->cmd == XEN_DOMCTL_SCHEDOP_getinfo )
+     {
+-        op->u.d.credit.weight = sdom->weight;
+-        op->u.d.credit.cap = sdom->cap;
++        op->u.credit.weight = sdom->weight;
++        op->u.credit.cap = sdom->cap;
+     }
+     else
+     {
+         ASSERT(op->cmd == XEN_DOMCTL_SCHEDOP_putinfo);
+ 
+-        if ( op->u.d.credit.weight != 0 )
++        if ( op->u.credit.weight != 0 )
+         {
+             if ( !list_empty(&sdom->active_sdom_elem) )
+             {
+                 prv->weight -= sdom->weight * sdom->active_vcpu_count;
+-                prv->weight += op->u.d.credit.weight * sdom->active_vcpu_count;
++                prv->weight += op->u.credit.weight * sdom->active_vcpu_count;
+             }
+-            sdom->weight = op->u.d.credit.weight;
++            sdom->weight = op->u.credit.weight;
+         }
+ 
+-        if ( op->u.d.credit.cap != (uint16_t)~0U )
+-            sdom->cap = op->u.d.credit.cap;
++        if ( op->u.credit.cap != (uint16_t)~0U )
++            sdom->cap = op->u.credit.cap;
+ 
+     }
+ 

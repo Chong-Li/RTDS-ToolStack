@@ -1,0 +1,26 @@
+--- xen/common/sched_credit2.c
++++ xen/common/sched_credit2.c
+@@ -1438,20 +1438,20 @@
+ 
+     if ( op->cmd == XEN_DOMCTL_SCHEDOP_getinfo )
+     {
+-        op->u.d.credit2.weight = sdom->weight;
++        op->u.credit2.weight = sdom->weight;
+     }
+     else
+     {
+         ASSERT(op->cmd == XEN_DOMCTL_SCHEDOP_putinfo);
+ 
+-        if ( op->u.d.credit2.weight != 0 )
++        if ( op->u.credit2.weight != 0 )
+         {
+             struct list_head *iter;
+             int old_weight;
+ 
+             old_weight = sdom->weight;
+ 
+-            sdom->weight = op->u.d.credit2.weight;
++            sdom->weight = op->u.credit2.weight;
+ 
+             /* Update weights for vcpus, and max_weight for runqueues on which they reside */
+             list_for_each ( iter, &sdom->vcpu )

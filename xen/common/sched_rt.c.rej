@@ -1,0 +1,29 @@
+--- xen/common/sched_rt.c
++++ xen/common/sched_rt.c
+@@ -1091,12 +1091,12 @@
+     case XEN_DOMCTL_SCHEDOP_getinfo:
+         spin_lock_irqsave(&prv->lock, flags);
+         svc = list_entry(sdom->vcpu.next, struct rt_vcpu, sdom_elem);
+-        op->u.d.rtds.period = svc->period / MICROSECS(1); /* transfer to us */
+-        op->u.d.rtds.budget = svc->budget / MICROSECS(1);
++        op->u.rtds.period = svc->period / MICROSECS(1); /* transfer to us */
++        op->u.rtds.budget = svc->budget / MICROSECS(1);
+         spin_unlock_irqrestore(&prv->lock, flags);
+         break;
+     case XEN_DOMCTL_SCHEDOP_putinfo:
+-        if ( op->u.d.rtds.period == 0 || op->u.d.rtds.budget == 0 )
++        if ( op->u.rtds.period == 0 || op->u.rtds.budget == 0 )
+         {
+             rc = -EINVAL;
+             break;
+@@ -1105,8 +1105,8 @@
+         list_for_each( iter, &sdom->vcpu )
+         {
+             struct rt_vcpu * svc = list_entry(iter, struct rt_vcpu, sdom_elem);
+-            svc->period = MICROSECS(op->u.d.rtds.period); /* transfer to nanosec */
+-            svc->budget = MICROSECS(op->u.d.rtds.budget);
++            svc->period = MICROSECS(op->u.rtds.period); /* transfer to nanosec */
++            svc->budget = MICROSECS(op->u.rtds.budget);
+         }
+         spin_unlock_irqrestore(&prv->lock, flags);
+         break;
