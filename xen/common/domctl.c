@@ -838,7 +838,11 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
     }
 
     case XEN_DOMCTL_scheduler_op:
+        printk("warning000\n");
         ret = sched_adjust(d, &op->u.scheduler_op);
+        if ( ret == -ERESTART )
+            ret = hypercall_create_continuation(
+                __HYPERVISOR_domctl, "h", u_domctl);
         copyback = 1;
         break;
 
