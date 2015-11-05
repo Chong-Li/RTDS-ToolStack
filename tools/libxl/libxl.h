@@ -200,16 +200,6 @@
 #define LIBXL_HAVE_DEVICETREE_PASSTHROUGH 1
 
 /*
- * libxl_vcpu_sched_params is used to store per-vcpu params
-*/
-#define LIBXL_HAVE_VCPU_SCHED_PARAMS 1
-
-/*
- * libxl_sched_params is used to store the array of per-vcpu params
-*/
-#define LIBXL_HAVE_SCHED_PARAMS 1
-
-/*
  * libxl ABI compatibility
  *
  * The only guarantee which libxl makes regarding ABI compatibility
@@ -1564,17 +1554,10 @@ int libxl_sched_credit_params_set(libxl_ctx *ctx, uint32_t poolid,
 #define LIBXL_DOMAIN_SCHED_PARAM_EXTRATIME_DEFAULT -1
 #define LIBXL_DOMAIN_SCHED_PARAM_BUDGET_DEFAULT    -1
 
-/* Per-VCPU parameters*/
-#define LIBXL_SCHED_PARAM_VCPU_INDEX_DEFAULT   -1
-
 int libxl_domain_sched_params_get(libxl_ctx *ctx, uint32_t domid,
                                   libxl_domain_sched_params *params);
 int libxl_domain_sched_params_set(libxl_ctx *ctx, uint32_t domid,
                                   const libxl_domain_sched_params *params);
-int libxl_vcpu_sched_params_get(libxl_ctx *ctx, uint32_t domid,
-                                  libxl_vcpu_sched_params *params);
-int libxl_vcpu_sched_params_set(libxl_ctx *ctx, uint32_t domid,
-                                  const libxl_vcpu_sched_params *params);
 
 int libxl_send_trigger(libxl_ctx *ctx, uint32_t domid,
                        libxl_trigger trigger, uint32_t vcpuid);
